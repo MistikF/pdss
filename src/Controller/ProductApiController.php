@@ -6,7 +6,6 @@ use App\Service\ProductService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ProductApiController extends AbstractController

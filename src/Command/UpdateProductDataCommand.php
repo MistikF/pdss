@@ -19,8 +19,8 @@ use App\Entity\Product;
 class UpdateProductDataCommand extends Command
 {
     protected static $defaultName = 'products:update_data';
-    private $client;
-    private $entityManager;
+    private HttpClientInterface $client;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager)
     {
@@ -55,10 +55,8 @@ class UpdateProductDataCommand extends Command
             if ($response->getStatusCode() === 200) {
                 $data = $response->toArray();
 
-                // Получаем объект ProductDetail из Product
                 $productDetail = $product->getProductDetail()->first();
 
-                // Если у продукта нет связанного ProductDetail, создаем его
                 if (!$productDetail) {
                     $productDetail = new ProductDetail();
                     $productDetail->setProduct($product);
@@ -79,7 +77,6 @@ class UpdateProductDataCommand extends Command
 
                 $this->entityManager->persist($productDetail);
 
-                // Выводим информацию о каждом обновленном продукте
                 $io->writeln("{$data['title']}: {$data['price']}, {$data['rating']}");
 
                 $updatedCount++;
@@ -89,7 +86,6 @@ class UpdateProductDataCommand extends Command
 
         $this->entityManager->flush();
 
-        // Выводим общее количество обновленных строк
         $io->writeln("Total: {$updatedCount}");
         $io->writeln("=========================");
 

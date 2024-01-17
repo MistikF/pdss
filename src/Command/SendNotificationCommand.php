@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -15,8 +16,8 @@ class SendNotificationCommand extends Command
 {
     protected static $defaultName = 'products:send_notification';
 
-    private $entityManager;
-    private $mailer;
+    private EntityManagerInterface $entityManager;
+    private MailerInterface $mailer;
 
     public function __construct(EntityManagerInterface $entityManager, MailerInterface $mailer)
     {
@@ -33,6 +34,9 @@ class SendNotificationCommand extends Command
             ->addArgument('email', InputArgument::REQUIRED, 'Email для отправки уведомления');
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $email = $input->getArgument('email');

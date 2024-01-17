@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use App\Entity\ProductDetail;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -31,6 +30,5 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'homepage');
         yield MenuItem::linkToCrud('Products', 'fas fa-box', Product::class);
-        // ProductDetails CRUD is not needed as per your requirements, so it's not added to the menu
     }
 }
