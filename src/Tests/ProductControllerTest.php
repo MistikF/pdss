@@ -28,5 +28,7 @@ class ProductControllerTest extends WebTestCase
         $this->assertArrayHasKey('rating', $productData);
         $this->assertArrayHasKey('stock', $productData);
         $this->assertArrayHasKey('brand', $productData);
+        $this->assertEquals('iPhone 9', $productData['title']);
+        $this->assertEquals('Apple', $productData['brand']);
     }
 }
