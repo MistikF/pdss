@@ -49,7 +49,7 @@ class UpdateProductDataCommand extends Command
         $products = $this->entityManager->getRepository(Product::class)->findAll();
         $updatedCount = 0;
 
-        foreach ($products as $product) {
+        foreach ($products as $index=>$product) {
             $response = $this->client->request('GET', 'https://dummyjson.com/products/'.$product->getId());
 
             if ($response->getStatusCode() === 200) {
@@ -63,7 +63,6 @@ class UpdateProductDataCommand extends Command
                     $product->addProductDetail($productDetail);
                 }
 
-                // Обновляем данные продукта с помощью полученных данных
                 $productDetail->setTitle($data['title']);
                 $productDetail->setDescription($data['description']);
                 $productDetail->setPrice($data['price']);
